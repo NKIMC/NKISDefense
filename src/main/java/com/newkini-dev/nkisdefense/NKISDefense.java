@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.newkini-dev.nkisdefense;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -29,7 +29,7 @@ import net.neoforged.neoforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(com.example.examplemod.NKISDefense.MODID)
+@Mod(com.newkini-dev.nkisdefense.NKISDefense.MODID)
 public class NKISDefense
 {
     // Define mod id in a common place for everything to reference
