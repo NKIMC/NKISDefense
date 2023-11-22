@@ -1,5 +1,6 @@
 {
   "block.nkisdefense.gun_workbench": "총 작업대",
   "item.nkisdefense.pistol": "권총",
+  "item.nkisdefense.pistol_bullet": "권총 총알",
   "itemGroup.nkisdefense.gun": "NKI's DF - 총"
 }

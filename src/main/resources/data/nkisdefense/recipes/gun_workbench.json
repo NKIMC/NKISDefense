@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#5#",
+    "#5#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "5": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "item": "nkisdefense:gun_workbench"
+  }
+}
