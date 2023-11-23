@@ -2,6 +2,7 @@ package com.newkinidev.nkisdefense;
 
 import com.mojang.logging.LogUtils;
 
+import com.newkinidev.nkisdefense.block.GunWorkbench;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -31,11 +32,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import org.slf4j.Logger;
 
-import static com.newkinidev.nkisdefense.block.GunWorkbench.GUN_WORKBENCH;
-import static com.newkinidev.nkisdefense.block.GunWorkbench.GUN_WORKBENCH_ITEM;
-import static com.newkinidev.nkisdefense.item.Pistol.PISTOL;
-import static com.newkinidev.nkisdefense.item.PistolBullet.PISTOL_BULLET;
-
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(NKISDefense.MODID)
 public class NKISDefense
@@ -49,8 +45,14 @@ public class NKISDefense
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> ITEM_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    public static DeferredHolder<Block, Block> GUN_WORKBENCH;
+
+    public static DeferredHolder<Item, Item> PISTOL;
+    public static DeferredHolder<Item, BlockItem> GUN_WORKBENCH_ITEM;
+    public static DeferredHolder<Item, Item> PISTOL_BULLET;
+
     static {
-        GUN_WORKBENCH = BLOCKS.register("gun_workbench", () -> new Block(BlockBehaviour.Properties.of()
+        GUN_WORKBENCH = BLOCKS.register("gun_workbench", () -> new GunWorkbench(BlockBehaviour.Properties.of()
                 .sound(SoundType.STONE)
                 .strength(1.0F, 1.0F)
                 .requiresCorrectToolForDrops()));
