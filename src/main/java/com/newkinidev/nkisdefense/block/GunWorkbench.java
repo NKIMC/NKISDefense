@@ -1,22 +1,35 @@
 package com.newkinidev.nkisdefense.block;
 
+import com.newkinidev.nkisdefense.gui.GunWorkbenchGui;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class GunWorkbench extends BaseEntityBlock {
+public class GunWorkbench extends Block {
+    private static final Component CONTAINER_TITLE = Component.translatable("container.gun_workbench");
 
     public GunWorkbench(Properties p_49795_) {
         super(p_49795_);
@@ -32,9 +45,24 @@ public class GunWorkbench extends BaseEntityBlock {
         return voxel;
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return null;
+    public RenderShape getRenderShape(BlockState p_49232_) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, state.getMenuProvider(level, pos));
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
+    public MenuProvider getMenuProvider(BlockState p_52240_, Level p_52241_, BlockPos p_52242_) {
+        return new SimpleMenuProvider(
+                    (containerId, playerInventory, player) -> new GunWorkbenchGui(containerId, playerInventory),
+                    CONTAINER_TITLE
+        );
     }
 }

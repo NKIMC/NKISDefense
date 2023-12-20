@@ -3,10 +3,16 @@ package com.newkinidev.nkisdefense;
 import com.mojang.logging.LogUtils;
 
 import com.newkinidev.nkisdefense.block.GunWorkbench;
+import com.newkinidev.nkisdefense.gui.GunWorkbenchGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.StatFormatter;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -44,6 +50,7 @@ public class NKISDefense
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> ITEM_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<MenuType<?>> GUI = DeferredRegister.create(Registries.MENU, MODID);
 
     public static DeferredHolder<Block, Block> GUN_WORKBENCH;
 
@@ -70,6 +77,8 @@ public class NKISDefense
                 output.accept(PISTOL.get());
                 output.accept(GUN_WORKBENCH_ITEM.get());
             }).build());
+
+    public static final DeferredHolder<MenuType<?>, MenuType<GunWorkbenchGui>> GUN_WORKBENCH_GUI = GUI.register("gun_workbench_menu", () -> new MenuType<>(GunWorkbenchGui::new, FeatureFlags.DEFAULT_FLAGS));
 
     public NKISDefense(IEventBus modEventBus)
     {
