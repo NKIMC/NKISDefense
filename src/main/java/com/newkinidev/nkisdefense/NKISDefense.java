@@ -4,7 +4,9 @@ import com.mojang.logging.LogUtils;
 
 import com.newkinidev.nkisdefense.block.GunWorkbench;
 import com.newkinidev.nkisdefense.gui.GunWorkbenchGui;
+import com.newkinidev.nkisdefense.screen.GunWorkbenchScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -87,12 +89,10 @@ public class NKISDefense
         // Register the commonSet up method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so tabs get registered
         ITEM_TAB.register(modEventBus);
+        GUI.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         NeoForge.EVENT_BUS.register(this);
@@ -139,6 +139,8 @@ public class NKISDefense
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            event.enqueueWork(GunWorkbenchScreen::register);
+
             // Some client setup code
             LOGGER.info("CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());

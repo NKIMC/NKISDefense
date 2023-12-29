@@ -18,6 +18,7 @@ public class GunWorkbenchGui extends AbstractContainerMenu {
 
     public GunWorkbenchGui(@Nullable MenuType<?> p_38851_, int p_38852_) {
         super(p_38851_, p_38852_);
+
     }
 
     @Override
@@ -27,6 +28,6 @@ public class GunWorkbenchGui extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player p_38874_) {
-        return false;
+        return true;
     }
 }
